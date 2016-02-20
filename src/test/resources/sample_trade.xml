@@ -1,0 +1,6 @@
+<Trade>
+    <TradeId>123456</TradeId>
+    <Buyer>EXAMPLE BUYER</Buyer>
+    <Seller>EXAMPLE SELLER</Seller>
+    <Price>105.5</Price>
+</Trade>
