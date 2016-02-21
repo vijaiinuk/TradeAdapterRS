@@ -14,7 +14,6 @@
             <value>WEB-INF/classes/TradeService.properties</value>
         </property>
     </bean>
-    <bean class="org.springframework.web.context.support.ServletContextPropertyPlaceholderConfigurer"/>
     <bean class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer"/>
     <bean id="tradePostService" class="com.tradeservice.service.TradePostServiceProviderImpl"/>
     <bean id="tradeStoreService" class="com.tradeservice.service.TradeStoreServiceImpl">
