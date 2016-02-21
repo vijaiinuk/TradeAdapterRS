@@ -21,3 +21,6 @@ Other Details:
 --------------
 - Used Guava Collections for caching the responses.
 - Statistics of number of requests/per minute will be logged in the application log file. (with file name TradeService.log where you run the standalone jar)
+
+
+Any questions, please feel free to call/mail me.  :)
