@@ -1,9 +1,6 @@
 package com.tradeservice.restservice;
 
-import com.tradeservice.beans.Trade;
-import com.tradeservice.beans.TradeAdapterStatistics;
-import com.tradeservice.beans.TradeResponse;
-import com.tradeservice.beans.TradeResponseWithStatus;
+import com.tradeservice.beans.*;
 import com.tradeservice.exception.TradeAdapterException;
 import com.tradeservice.service.TradePostService;
 import com.tradeservice.service.TradeStoreService;
@@ -70,13 +67,20 @@ public class TestTradeAdapterRS {
 
         assertTrue("Status is not SUCCESS", tradeAdapterRS.getTradeStatus(10000).contains("SUCCESS"));
 
+        try {
+            verify(tradeStoreService, times(1)).getTradeResponseWithStatusFromTradeStore(10000);
+        } catch (ExecutionException|TradeAdapterException e) {
+            fail();
+            e.printStackTrace();
+        }
+
         verify(tradeAdapterStatistics, times(1)).incrementRetrieveCounter();
         verify(tradeAdapterStatistics, never()).incrementSaveCounter();
     }
 
     @Test
     public void testSaveTrade()  {
-        Trade trade = new Trade(123456, "BUYER", "SELLER", BigDecimal.valueOf(100.0));
+        Trade trade = new TradeBuilder().setId(123456).setCustomer("BUYER").setTrader("SELLER").setPrice(BigDecimal.valueOf(100.0)).createTrade();
 
         try {
             Response response = tradeAdapterRS.saveTrade(trade);
@@ -88,6 +92,8 @@ public class TestTradeAdapterRS {
 
         verify(tradeAdapterStatistics, times(1)).incrementSaveCounter();
         verify(tradeAdapterStatistics, never()).incrementRetrieveCounter();
+
+        verify(tradeStoreService, times(1)).addToTradeStore(anyLong(), any(TradeResponseWithStatus.class));
 
     }
 }
